@@ -1,0 +1,63 @@
+import { Bluetooth } from '@types/web-bluetooth';
+
+
+--------------------------------- Arduino -----------------------------------
+
+#include <SoftwareSerial.h>
+
+SoftwareSerial bluetooth(2, 3); // RX, TX pins for Bluetooth module
+
+void setup() {
+  pinMode(9, OUTPUT); // Set pin 9 as output for PWRC
+  Serial.begin(9600);
+  bluetooth.begin(9600);
+  digitalWrite(9, HIGH); // Turn on Bluetooth module
+}
+
+void loop() {
+  if (bluetooth.available()) {
+    // Serial.println('1');
+    char c = bluetooth.read();
+    Serial.println(c); // Print received data to the Serial Monitor
+  }
+}
+
+// pwd - d9
+// vcc - 5v
+// gnd - gnd
+// txd - d2
+// rxd - d3 
+
+
+-------------------- vite ----------------------------
+
+// UUID of the JDY-33-BLE service
+const serviceUuid = "0000ffe0-0000-1000-8000-00805f9b34fb";
+// UUID of the characteristic to send data to
+const characteristicUuid = "0000ffe1-0000-1000-8000-00805f9b34fb";
+
+async function connectToDevice() {
+  try {
+    const device = await navigator.bluetooth.requestDevice({
+      filters: [{
+        name: "JDY-33-BLE"
+      }],
+      optionalServices: [serviceUuid]
+    });
+
+    // connect to the device
+    const server = await device.gatt.connect();
+    
+    // discover the service and characteristic
+    const service = await server.getPrimaryService(serviceUuid);
+    const characteristic = await service.getCharacteristic(characteristicUuid);
+
+    // send data to the characteristic
+    const data = new Uint8Array([1, 2, 3]);
+    await characteristic.writeValue(data);
+
+    console.log("Data sent successfully");
+  } catch (error) {
+    console.error(error);
+  }
+}

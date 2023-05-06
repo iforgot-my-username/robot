@@ -1,0 +1,73 @@
+.controller-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+  }
+  
+  .button-group {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width: 500px;
+    margin: 0 auto;
+    background-color: transparent !important;
+    align-items: center; /* Add this line */
+  }
+  
+  .up-button {
+    color: white;
+    background-color: black !important;
+    width: 100px;
+    height: 100px;
+    margin-bottom: 10px !important;
+    border-radius: 50% !important;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3) !important;
+  }
+  
+  .down-button {
+    color: white;
+    background-color: gold !important;
+    width: 100px;
+    height: 100px;
+    border-radius: 50% !important;
+    margin-top: 10px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3) !important;
+  }
+
+  .bottom-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+
+  }
+
+  .weap {
+    width: 100px;
+  }
+  
+  .up-button:hover,
+  .up-button:focus {
+    background-color: gray;
+  }
+  
+  .down-button:hover,
+  .down-button:focus {
+    background-color: darkgoldenrod;
+  }
+
+  @media (max-width: 768px) {
+    .button-group {
+      max-width: 300px;
+      margin: 0 auto;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .button-group {
+      max-width: 200px;
+      margin: 0 auto;
+    }
+  }
