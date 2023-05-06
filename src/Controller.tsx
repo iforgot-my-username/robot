@@ -10,6 +10,8 @@ interface Props {
   onDownClick1: () => void;
   onUpClick2: () => void;
   onDownClick2: () => void;
+  func1: () => void;
+  func2: () => void;
 }
 
 const Controller: React.FC<Props> = ({
@@ -17,6 +19,8 @@ const Controller: React.FC<Props> = ({
   onDownClick1,
   onUpClick2,
   onDownClick2,
+  func1,
+  func2,
 }) => {
   return (
     <div style={{ marginTop: '70px' }}>
@@ -27,10 +31,10 @@ const Controller: React.FC<Props> = ({
           disableElevation
         >
           <Button className="up-button" onClick={onUpClick1}>
-            <ArrowDropUpIcon />
+            <ArrowDropUpIcon fontSize="large" />
           </Button>
           <Button className="down-button" onClick={onDownClick1}>
-            <ArrowDropDownIcon />
+            <ArrowDropDownIcon fontSize="large" />
           </Button>
         </ButtonGroup>
         <ButtonGroup
@@ -39,10 +43,10 @@ const Controller: React.FC<Props> = ({
           disableElevation
         >
           <Button className="up-button" onClick={onUpClick2}>
-            <ArrowDropUpIcon />
+            <ArrowDropUpIcon fontSize="large" />
           </Button>
           <Button className="down-button" onClick={onDownClick2}>
-            <ArrowDropDownIcon />
+            <ArrowDropDownIcon fontSize="large" />
           </Button>
         </ButtonGroup>
       </div>
@@ -52,10 +56,16 @@ const Controller: React.FC<Props> = ({
           variant="contained"
           color="primary"
           style={{ marginRight: '10px' }}
+          onClick={func1}
         >
           Weapon
         </Button>
-        <Button className="weap" variant="contained" color="secondary">
+        <Button
+          className="weap"
+          variant="contained"
+          color="secondary"
+          onClick={func2}
+        >
           Flame
         </Button>
       </div>

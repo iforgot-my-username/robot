@@ -2,6 +2,7 @@ import { Dispatch, useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Controller from './Controller';
+import { Button } from '@mui/material';
 
 function App() {
   const [count, setCount] = useState(0);
@@ -120,11 +121,24 @@ function App() {
   // );
   return (
     <div className="App">
+      <Button variant="contained" onClick={connectToDevice}>
+        connect
+      </Button>
       <Controller
-        onDownClick1={() => {}}
-        onDownClick2={() => {}}
-        onUpClick1={() => {}}
-        onUpClick2={() => {}}
+        onDownClick1={async () =>
+          chard!.writeValue(new TextEncoder().encode('w'))
+        }
+        onDownClick2={async () =>
+          chard!.writeValue(new TextEncoder().encode('s'))
+        }
+        onUpClick1={async () =>
+          chard!.writeValue(new TextEncoder().encode('u'))
+        }
+        onUpClick2={async () =>
+          chard!.writeValue(new TextEncoder().encode('d'))
+        }
+        func1={async () => chard!.writeValue(new TextEncoder().encode('1'))}
+        func2={async () => chard!.writeValue(new TextEncoder().encode('2'))}
       ></Controller>
     </div>
   );
