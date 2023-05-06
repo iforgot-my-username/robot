@@ -76,7 +76,7 @@ const Controller: React.FC<Props> = ({
             }
             onMouseUp={() => handleMouseUp(upButton1IntervalId)}
           >
-            <ArrowDropUpIcon fontSize="large" /> 1
+            <ArrowDropUpIcon fontSize="large" />
           </Button>
           <Button
             className="down-button"
