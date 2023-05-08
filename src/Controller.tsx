@@ -4,7 +4,7 @@ import ButtonGroup from '@mui/material/ButtonGroup';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import './Controller.css';
-import { Box } from '@mui/material';
+import { Box, Switch, Typography } from '@mui/material';
 
 interface Props {
   controlAction: ([]: number[]) => void;
@@ -37,6 +37,8 @@ const Controller: React.FC<Props> = ({
   const [upButton2Pressed, setUpButton2Pressed] = useState(false);
   const [downButton2Pressed, setDownButton2Pressed] = useState(false);
   const [logic, setLogic] = useState([0, 0, 0, 0]);
+  const [weapon, setWeapon] = useState(false);
+  const [flame, setFlame] = useState(false);
 
   // const handleMouseDown = (
   //   action: () => void,
@@ -171,26 +173,60 @@ const Controller: React.FC<Props> = ({
         </ButtonGroup>
       </div>
       <div className="bottom-buttons">
-        <Button
-          className="weap"
-          variant="contained"
-          color="primary"
-          style={{ marginRight: '10px' }}
-          onClick={func1}
+        <Box
+          sx={{
+            borderRadius: '10px',
+            backgroundColor: 'gray',
+            display: 'flex',
+            flexDirection: 'row',
+          }}
         >
-          Weapon
-        </Button>
-        <Button
-          className="weap"
-          variant="contained"
-          color="secondary"
-          onClick={func2}
-        >
-          Flame
-        </Button>
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              flexDirection: 'column',
+              padding: '20px',
+            }}
+          >
+            <Typography
+              sx={{ fontFamily: '"Courier New", monospace', color: 'white' }}
+            >
+              WEAPON
+            </Typography>
+            <Switch
+              checked={weapon}
+              onChange={() => setWeapon(!weapon)}
+              inputProps={{ 'aria-label': 'toggle' }}
+            />
+          </Box>
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              flexDirection: 'column',
+              padding: '20px',
+            }}
+          >
+            <Typography
+              sx={{ fontFamily: '"Courier New", monospace', color: 'white' }}
+            >
+              FLAME
+            </Typography>
+            <Switch
+              checked={flame}
+              onChange={() => setFlame(!flame)}
+              inputProps={{ 'aria-label': 'toggle' }}
+            />
+          </Box>
+        </Box>
       </div>
       <Box
         sx={{
+          borderRadius: '5px',
+
           marginTop: '15px',
           backgroundColor: '#f5f5f5',
           padding: '2px',

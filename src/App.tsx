@@ -5,7 +5,6 @@ import Controller from './Controller';
 import { Button } from '@mui/material';
 
 function App() {
-  const [count, setCount] = useState(0);
   const [chard, setDevice] = useState<BluetoothRemoteGATTCharacteristic | null>(
     null
   );
@@ -47,7 +46,7 @@ function App() {
 
   return (
     <div className="App">
-      <Button variant="contained" onClick={connectToDevice}>
+      <Button variant="contained" color="secondary" onClick={connectToDevice}>
         connect
       </Button>
       <Controller
