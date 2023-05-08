@@ -22,7 +22,6 @@ const Controller: React.FC<Props> = ({ controlAction }) => {
   const [flame, setFlame] = useState(false);
 
   if (logic.every((e) => e === 0) && buttonsIntervalId !== null) {
-    console.log('fire');
     clearInterval(buttonsIntervalId!);
     setButtonsIntervalId(null);
   }
@@ -55,7 +54,7 @@ const Controller: React.FC<Props> = ({ controlAction }) => {
           logicTransform(weapon),
           logicTransform(flame),
         ]);
-      }, 180);
+      }, 200);
 
       setButtonsIntervalId(intervalId);
     }
@@ -205,6 +204,7 @@ const Controller: React.FC<Props> = ({ controlAction }) => {
               checked={weapon}
               onChange={() => setWeapon(!weapon)}
               inputProps={{ 'aria-label': 'toggle' }}
+              color="error"
             />
           </Box>
           <Box
@@ -225,6 +225,7 @@ const Controller: React.FC<Props> = ({ controlAction }) => {
               checked={flame}
               onChange={() => setFlame(!flame)}
               inputProps={{ 'aria-label': 'toggle' }}
+              color="error"
             />
           </Box>
         </Box>

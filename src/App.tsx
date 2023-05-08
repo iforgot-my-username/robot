@@ -56,7 +56,12 @@ function App() {
       <Controller
         controlAction={(logic) => {
           console.log(logic);
-          //   // chard!.writeValue(new TextEncoder().encode('w'));
+          if (chard !== null) {
+            chard.writeValue(
+              new TextEncoder().encode('<' + logic.join('') + '>')
+            );
+          }
+          // chard!.writeValue(new TextEncoder().encode(logic.join('w')));
         }}
         // upButton1Action={async () => {
         //   // chard!.writeValue(new TextEncoder().encode('w'));
