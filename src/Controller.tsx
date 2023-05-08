@@ -31,40 +31,37 @@ const Controller: React.FC<Props> = ({
   func1,
   func2,
 }) => {
-  const [upButton1IntervalId, setUpButton1IntervalId] = useState<number | null>(
-    null
-  );
-  const [downButton1IntervalId, setDownButton1IntervalId] = useState<
-    number | null
-  >(null);
-  const [upButton2IntervalId, setUpButton2IntervalId] = useState<number | null>(
-    null
-  );
-  const [downButton2IntervalId, setDownButton2IntervalId] = useState<
-    number | null
-  >(null);
+  // const [upButton1IntervalId, setUpButton1IntervalId] = useState<number | null>(
+  //   null
+  // );
+  // const [downButton1IntervalId, setDownButton1IntervalId] = useState<
+  //   number | null
+  // >(null);
+  // const [upButton2IntervalId, setUpButton2IntervalId] = useState<number | null>(
+  //   null
+  // );
+  // const [downButton2IntervalId, setDownButton2IntervalId] = useState<
+  //   number | null
+  // >(null);
 
-  const [display1, setDisplay1] = useState('1');
-  const [display2, setDisplay2] = useState('1');
+  const [upButton1Pressed, setUpButton1Pressed] = useState(false);
+  const [downButton1Pressed, setDownButton1Pressed] = useState(false);
+  const [upButton2Pressed, setUpButton2Pressed] = useState(false);
+  const [downButton2Pressed, setDownButton2Pressed] = useState(false);
 
-  const display = (txt: string) => {
-    setDisplay1(display2);
-    setDisplay2(`${new Date().getSeconds()}s:  ${txt}`);
-  };
+  // const handleMouseDown = (
+  //   action: () => void,
+  //   dispatchSetInteralId: React.Dispatch<React.SetStateAction<number | null>>
+  // ) => {
+  //   const intervalId = setInterval(action, 180);
+  //   dispatchSetInteralId(intervalId);
+  // };
 
-  const handleMouseDown = (
-    action: () => void,
-    dispatchSetInteralId: React.Dispatch<React.SetStateAction<number | null>>
-  ) => {
-    const intervalId = setInterval(action, 180);
-    dispatchSetInteralId(intervalId);
-  };
-
-  const handleMouseUp = (intervalId: number | null) => {
-    if (intervalId !== null) {
-      clearInterval(intervalId);
-    }
-  };
+  // const handleMouseUp = (intervalId: number | null) => {
+  //   if (intervalId !== null) {
+  //     clearInterval(intervalId);
+  //   }
+  // };
 
   return (
     <div style={{ marginTop: '70px' }}>
@@ -78,20 +75,29 @@ const Controller: React.FC<Props> = ({
             className="up-button"
             onClick={upButton1Action}
             onMouseDown={() => {
-              handleMouseDown(upButton1Action, setUpButton1IntervalId);
-              display('Up right');
+              setUpButton1Pressed(true);
+              // handleMouseDown(upButton1Action, setUpButton1IntervalId);
             }}
-            onMouseUp={() => handleMouseUp(upButton1IntervalId)}
+            onMouseUp={() => {
+              setUpButton1Pressed(false);
+              // handleMouseUp(upButton1IntervalId);
+            }}
           >
             <ArrowDropUpIcon fontSize="large" />
           </Button>
           <Button
             className="down-button"
             onClick={downButton1Action}
-            onMouseDown={() =>
-              handleMouseDown(downButton1Action, setDownButton1IntervalId)
-            }
-            onMouseUp={() => handleMouseUp(downButton1IntervalId)}
+            onMouseDown={() => {
+              setDownButton1Pressed(true);
+
+              // handleMouseDown(downButton1Action, setDownButton1IntervalId);
+            }}
+            onMouseUp={() => {
+              setDownButton1Pressed(false);
+
+              // handleMouseUp(downButton1IntervalId);
+            }}
           >
             <ArrowDropDownIcon fontSize="large" />
           </Button>
@@ -105,20 +111,30 @@ const Controller: React.FC<Props> = ({
             className="up-button"
             onClick={upButton2Action}
             onMouseDown={() => {
-              handleMouseDown(upButton2Action, setUpButton2IntervalId);
-              display('Up left');
+              // handleMouseDown(upButton2Action, setUpButton2IntervalId);
+              setUpButton2Pressed(true);
             }}
-            onMouseUp={() => handleMouseUp(upButton2IntervalId)}
+            onMouseUp={() => {
+              setUpButton2Pressed(false);
+
+              // handleMouseUp(upButton2IntervalId);
+            }}
           >
             <ArrowDropUpIcon fontSize="large" />
           </Button>
           <Button
             className="down-button"
             onClick={downButton2Action}
-            onMouseDown={() =>
-              handleMouseDown(downButton2Action, setDownButton2IntervalId)
-            }
-            onMouseUp={() => handleMouseUp(downButton2IntervalId)}
+            onMouseDown={() => {
+              setDownButton2Pressed(true);
+
+              // handleMouseDown(downButton2Action, setDownButton2IntervalId);
+            }}
+            onMouseUp={() => {
+              setDownButton2Pressed(false);
+
+              // handleMouseUp(downButton2IntervalId);
+            }}
           >
             <ArrowDropDownIcon fontSize="large" />
           </Button>
@@ -157,8 +173,8 @@ const Controller: React.FC<Props> = ({
           flexDirection: 'column',
         }}
       >
-        <div>{display1}</div>
-        <div>{display2}</div>
+        <div>{`${upButton1Pressed} ${upButton2Pressed}`}</div>
+        <div>{`${downButton1Pressed} ${downButton2Pressed}`}</div>
       </Box>
     </div>
   );
