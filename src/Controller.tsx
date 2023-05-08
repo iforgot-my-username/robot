@@ -48,6 +48,7 @@ const Controller: React.FC<Props> = ({
   const [downButton1Pressed, setDownButton1Pressed] = useState(false);
   const [upButton2Pressed, setUpButton2Pressed] = useState(false);
   const [downButton2Pressed, setDownButton2Pressed] = useState(false);
+  const [logic, setLogic] = useState([0, 0, 0, 0]);
 
   // const handleMouseDown = (
   //   action: () => void,
@@ -62,6 +63,23 @@ const Controller: React.FC<Props> = ({
   //     clearInterval(intervalId);
   //   }
   // };
+  const logicTransform = (logic: boolean) => (logic ? 1 : 0);
+
+  useEffect(() => {
+    setLogic(
+      [
+        upButton1Pressed,
+        downButton1Pressed,
+        upButton2Pressed,
+        downButton2Pressed,
+      ].map(logicTransform)
+    );
+  }, [
+    upButton1Pressed,
+    downButton1Pressed,
+    upButton2Pressed,
+    downButton2Pressed,
+  ]);
 
   return (
     <div style={{ marginTop: '70px' }}>
@@ -190,7 +208,7 @@ const Controller: React.FC<Props> = ({
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
-          height: '50px',
+          height: '80px',
           width: '30%',
           mx: 'auto',
           flexDirection: 'column',
@@ -198,6 +216,7 @@ const Controller: React.FC<Props> = ({
       >
         <div>{`${upButton1Pressed} ${upButton2Pressed}`}</div>
         <div>{`${downButton1Pressed} ${downButton2Pressed}`}</div>
+        <div>{logic.join(' ')}</div>
       </Box>
     </div>
   );
