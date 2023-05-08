@@ -1,5 +1,7 @@
 import { Bluetooth } from '@types/web-bluetooth';
 
+https://fontawesome.com/icons/skull?f=classic&s=solid&pc=%23d5d6d8
+
 
 --------------------------------- Arduino -----------------------------------
 
