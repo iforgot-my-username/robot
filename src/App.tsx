@@ -51,18 +51,21 @@ function App() {
         connect
       </Button>
       <Controller
-        upButton1Action={async () => {
-          // chard!.writeValue(new TextEncoder().encode('w'));
+        controlAction={(logic) => {
+          //   // chard!.writeValue(new TextEncoder().encode('w'));
         }}
-        downButton1Action={async () => {
-          // chard!.writeValue(new TextEncoder().encode('s'));
-        }}
-        upButton2Action={async () => {
-          // chard!.writeValue(new TextEncoder().encode('u'));
-        }}
-        downButton2Action={async () => {
-          // chard!.writeValue(new TextEncoder().encode('d'));
-        }}
+        // upButton1Action={async () => {
+        //   // chard!.writeValue(new TextEncoder().encode('w'));
+        // }}
+        // downButton1Action={async () => {
+        //   // chard!.writeValue(new TextEncoder().encode('s'));
+        // }}
+        // upButton2Action={async () => {
+        //   // chard!.writeValue(new TextEncoder().encode('u'));
+        // }}
+        // downButton2Action={async () => {
+        //   // chard!.writeValue(new TextEncoder().encode('d'));
+        // }}
         func1={async () => chard!.writeValue(new TextEncoder().encode('1'))}
         func2={async () => chard!.writeValue(new TextEncoder().encode('2'))}
       ></Controller>

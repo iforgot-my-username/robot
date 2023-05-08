@@ -7,26 +7,14 @@ import './Controller.css';
 import { Box } from '@mui/material';
 
 interface Props {
-  upButton1Action: () => void;
-
-  downButton1Action: () => void;
-
-  upButton2Action: () => void;
-
-  downButton2Action: () => void;
+  controlAction: ([]: number[]) => void;
 
   func1: () => void;
   func2: () => void;
 }
 
 const Controller: React.FC<Props> = ({
-  upButton1Action,
-
-  downButton1Action,
-
-  upButton2Action,
-
-  downButton2Action,
+  controlAction,
 
   func1,
   func2,
@@ -74,6 +62,7 @@ const Controller: React.FC<Props> = ({
         downButton2Pressed,
       ].map(logicTransform)
     );
+    return controlAction(logic);
   }, [
     upButton1Pressed,
     downButton1Pressed,
@@ -110,7 +99,7 @@ const Controller: React.FC<Props> = ({
           </Button>
           <Button
             className="down-button"
-            onClick={downButton1Action}
+            // onClick={downButton1Action}
             onMouseDown={() => {
               setDownButton1Pressed(true);
 
@@ -138,7 +127,7 @@ const Controller: React.FC<Props> = ({
         >
           <Button
             className="up-button"
-            onClick={upButton2Action}
+            // onClick={upButton2Action}
             onMouseDown={() => {
               // handleMouseDown(upButton2Action, setUpButton2IntervalId);
               setUpButton2Pressed(true);
@@ -159,7 +148,7 @@ const Controller: React.FC<Props> = ({
           </Button>
           <Button
             className="down-button"
-            onClick={downButton2Action}
+            // onClick={downButton2Action}
             onMouseDown={() => {
               setDownButton2Pressed(true);
 
@@ -208,14 +197,64 @@ const Controller: React.FC<Props> = ({
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
-          height: '80px',
+          height: '100px',
           width: '30%',
           mx: 'auto',
           flexDirection: 'column',
         }}
       >
-        <div>{`${upButton1Pressed} ${upButton2Pressed}`}</div>
-        <div>{`${downButton1Pressed} ${downButton2Pressed}`}</div>
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'row',
+          }}
+        >
+          <Box
+            sx={{
+              background: upButton1Pressed ? 'green' : '',
+              color: upButton1Pressed ? 'white' : '',
+              borderRadius: '50%',
+              padding: '4px',
+            }}
+          >
+            <ArrowDropUpIcon />
+          </Box>
+          <Box
+            sx={{
+              background: upButton2Pressed ? 'green' : '',
+              color: upButton2Pressed ? 'white' : '',
+              borderRadius: '50%',
+              padding: '4px',
+              marginLeft: '5px',
+            }}
+          >
+            <ArrowDropUpIcon />
+          </Box>
+        </Box>
+        <Box sx={{ display: 'flex', flexDirection: 'row', marginTop: '5px' }}>
+          <Box
+            sx={{
+              background: downButton1Pressed ? 'green' : '',
+              color: downButton1Pressed ? 'white' : '',
+              borderRadius: '50%',
+              padding: '4px',
+            }}
+          >
+            <ArrowDropDownIcon />
+          </Box>
+          <Box
+            sx={{
+              background: downButton2Pressed ? 'green' : '',
+              color: downButton2Pressed ? 'white' : '',
+              borderRadius: '50%',
+              padding: '4px',
+              marginLeft: '5px',
+            }}
+          >
+            <ArrowDropDownIcon />
+          </Box>
+        </Box>
+
         <div>{logic.join(' ')}</div>
       </Box>
     </div>
