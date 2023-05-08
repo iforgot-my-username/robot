@@ -87,35 +87,26 @@ const Controller: React.FC<Props> = ({ controlAction }) => {
             className="up-button"
             onMouseDown={() => {
               setUpButton1Pressed(true);
-              // handleMouseDown(upButton1Action, setUpButton1IntervalId);
             }}
             onMouseUp={() => {
               setUpButton1Pressed(false);
-              // handleMouseUp();
-              // handleMouseUp(upButton1IntervalId);
             }}
             onTouchStart={() => {
               setUpButton1Pressed(true);
             }}
             onTouchEnd={() => {
               setUpButton1Pressed(false);
-              // handleMouseUp();
             }}
           >
             <ArrowDropUpIcon fontSize="large" />
           </Button>
           <Button
             className="down-button"
-            // onClick={downButton1Action}
             onMouseDown={() => {
               setDownButton1Pressed(true);
-
-              // handleMouseDown(downButton1Action, setDownButton1IntervalId);
             }}
             onMouseUp={() => {
               setDownButton1Pressed(false);
-
-              // handleMouseUp(downButton1IntervalId);
             }}
             onTouchStart={() => {
               setDownButton1Pressed(true);
@@ -134,15 +125,11 @@ const Controller: React.FC<Props> = ({ controlAction }) => {
         >
           <Button
             className="up-button"
-            // onClick={upButton2Action}
             onMouseDown={() => {
-              // handleMouseDown(upButton2Action, setUpButton2IntervalId);
               setUpButton2Pressed(true);
             }}
             onMouseUp={() => {
               setUpButton2Pressed(false);
-
-              // handleMouseUp(upButton2IntervalId);
             }}
             onTouchStart={() => {
               setUpButton2Pressed(true);
@@ -155,16 +142,11 @@ const Controller: React.FC<Props> = ({ controlAction }) => {
           </Button>
           <Button
             className="down-button"
-            // onClick={downButton2Action}
             onMouseDown={() => {
               setDownButton2Pressed(true);
-
-              // handleMouseDown(downButton2Action, setDownButton2IntervalId);
             }}
             onMouseUp={() => {
               setDownButton2Pressed(false);
-
-              // handleMouseUp(downButton2IntervalId);
             }}
             onTouchStart={() => {
               setDownButton2Pressed(true);
