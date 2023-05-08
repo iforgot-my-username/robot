@@ -1,11 +1,9 @@
-import { Dispatch, useState } from 'react';
-import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
 import Controller from './Controller';
 import { Button } from '@mui/material';
 
 function App() {
-  const [count, setCount] = useState(0);
   const [chard, setDevice] = useState<BluetoothRemoteGATTCharacteristic | null>(
     null
   );
@@ -35,9 +33,9 @@ function App() {
 
       // send data to the characteristic
       // const data = new Uint8Array([1, 2, 3]);
-      const data = new TextEncoder().encode('j');
+      // const data = new TextEncoder().encode('j');
 
-      await characteristic.writeValue(data);
+      // await characteristic.writeValue(data);
 
       console.log('Data sent successfully');
     } catch (error) {
@@ -47,24 +45,38 @@ function App() {
 
   return (
     <div className="App">
-      <Button variant="contained" onClick={connectToDevice}>
+      <Button
+        // sx={{ fontFamily: '"Courier New", monospace', fontWeight: 'bold' }}
+        variant="contained"
+        color={chard !== null ? 'success' : 'error'}
+        onClick={connectToDevice}
+      >
         connect
       </Button>
       <Controller
-        upButton1Action={async () =>
-          chard!.writeValue(new TextEncoder().encode('w'))
-        }
-        downButton1Action={async () =>
-          chard!.writeValue(new TextEncoder().encode('s'))
-        }
-        upButton2Action={async () =>
-          chard!.writeValue(new TextEncoder().encode('u'))
-        }
-        downButton2Action={async () =>
-          chard!.writeValue(new TextEncoder().encode('d'))
-        }
-        func1={async () => chard!.writeValue(new TextEncoder().encode('1'))}
-        func2={async () => chard!.writeValue(new TextEncoder().encode('2'))}
+        controlAction={(logic) => {
+          console.log(logic);
+          if (chard !== null) {
+            chard.writeValue(
+              new TextEncoder().encode('<' + logic.join('') + '>')
+            );
+          }
+          // chard!.writeValue(new TextEncoder().encode(logic.join('w')));
+        }}
+        // upButton1Action={async () => {
+        //   // chard!.writeValue(new TextEncoder().encode('w'));
+        // }}
+        // downButton1Action={async () => {
+        //   // chard!.writeValue(new TextEncoder().encode('s'));
+        // }}
+        // upButton2Action={async () => {
+        //   // chard!.writeValue(new TextEncoder().encode('u'));
+        // }}
+        // downButton2Action={async () => {
+        //   // chard!.writeValue(new TextEncoder().encode('d'));
+        // }}
+        // func1={async () => chard!.writeValue(new TextEncoder().encode('1'))}
+        // func2={async () => chard!.writeValue(new TextEncoder().encode('2'))}
       ></Controller>
     </div>
   );

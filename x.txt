@@ -1,5 +1,7 @@
 import { Bluetooth } from '@types/web-bluetooth';
 
+https://fontawesome.com/icons/skull?f=classic&s=solid&pc=%23d5d6d8
+
 
 --------------------------------- Arduino -----------------------------------
 
@@ -27,6 +29,43 @@ void loop() {
 // gnd - gnd
 // txd - d2
 // rxd - d3 
+
+-------------------- Updated Arduino --------------------
+
+#include <SoftwareSerial.h>
+String x = "z";
+char y[7];
+String message = "";
+
+SoftwareSerial bluetooth(2, 3);  // RX, TX pins for Bluetooth module
+
+void setup() {
+  pinMode(9, OUTPUT);  // Set pin 9 as output for PWRC
+  Serial.begin(9600);
+  bluetooth.begin(9600);
+  digitalWrite(9, HIGH);  // Turn on Bluetooth module
+}
+
+void loop() {
+  if (bluetooth.available()) {
+    char c = bluetooth.read();
+    if (c == '1' | c == '0') {
+      message += c;
+    }
+    if (c == '>') {
+      Serial.println(message);
+      message = "";
+    }
+  } 
+
+}
+
+// pwd - d9
+// vcc - 5v
+// gnd - gnd
+// txd - d2
+// rxd - d3
+
 
 
 -------------------- vite ----------------------------
