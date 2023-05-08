@@ -73,7 +73,6 @@ const Controller: React.FC<Props> = ({
         >
           <Button
             className="up-button"
-            onClick={upButton1Action}
             onMouseDown={() => {
               setUpButton1Pressed(true);
               // handleMouseDown(upButton1Action, setUpButton1IntervalId);
@@ -81,6 +80,12 @@ const Controller: React.FC<Props> = ({
             onMouseUp={() => {
               setUpButton1Pressed(false);
               // handleMouseUp(upButton1IntervalId);
+            }}
+            onTouchStart={() => {
+              setUpButton1Pressed(true);
+            }}
+            onTouchEnd={() => {
+              setUpButton1Pressed(false);
             }}
           >
             <ArrowDropUpIcon fontSize="large" />
@@ -97,6 +102,12 @@ const Controller: React.FC<Props> = ({
               setDownButton1Pressed(false);
 
               // handleMouseUp(downButton1IntervalId);
+            }}
+            onTouchStart={() => {
+              setDownButton1Pressed(true);
+            }}
+            onTouchEnd={() => {
+              setDownButton1Pressed(false);
             }}
           >
             <ArrowDropDownIcon fontSize="large" />
@@ -119,6 +130,12 @@ const Controller: React.FC<Props> = ({
 
               // handleMouseUp(upButton2IntervalId);
             }}
+            onTouchStart={() => {
+              setUpButton2Pressed(true);
+            }}
+            onTouchEnd={() => {
+              setUpButton2Pressed(false);
+            }}
           >
             <ArrowDropUpIcon fontSize="large" />
           </Button>
@@ -134,6 +151,12 @@ const Controller: React.FC<Props> = ({
               setDownButton2Pressed(false);
 
               // handleMouseUp(downButton2IntervalId);
+            }}
+            onTouchStart={() => {
+              setDownButton2Pressed(true);
+            }}
+            onTouchEnd={() => {
+              setDownButton2Pressed(false);
             }}
           >
             <ArrowDropDownIcon fontSize="large" />
