@@ -3,34 +3,15 @@ import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import './Controller.css';
 import { Box, Switch, Typography } from '@mui/material';
-
 interface Props {
   controlAction: ([]: number[]) => void;
-
-  func1: () => void;
-  func2: () => void;
 }
 
-const Controller: React.FC<Props> = ({
-  controlAction,
-
-  func1,
-  func2,
-}) => {
-  // const [upButton1IntervalId, setUpButton1IntervalId] = useState<number | null>(
-  //   null
-  // );
-  // const [downButton1IntervalId, setDownButton1IntervalId] = useState<
-  //   number | null
-  // >(null);
-  // const [upButton2IntervalId, setUpButton2IntervalId] = useState<number | null>(
-  //   null
-  // );
-  // const [downButton2IntervalId, setDownButton2IntervalId] = useState<
-  //   number | null
-  // >(null);
+const Controller: React.FC<Props> = ({ controlAction }) => {
+  const [buttonsIntervalId, setButtonsIntervalId] = useState<number | null>(0);
 
   const [upButton1Pressed, setUpButton1Pressed] = useState(false);
   const [downButton1Pressed, setDownButton1Pressed] = useState(false);
@@ -40,31 +21,44 @@ const Controller: React.FC<Props> = ({
   const [weapon, setWeapon] = useState(false);
   const [flame, setFlame] = useState(false);
 
-  // const handleMouseDown = (
-  //   action: () => void,
-  //   dispatchSetInteralId: React.Dispatch<React.SetStateAction<number | null>>
-  // ) => {
-  //   const intervalId = setInterval(action, 180);
-  //   dispatchSetInteralId(intervalId);
-  // };
+  if (logic.every((e) => e === 0) && buttonsIntervalId !== null) {
+    console.log('fire');
+    clearInterval(buttonsIntervalId!);
+    setButtonsIntervalId(null);
+  }
 
-  // const handleMouseUp = (intervalId: number | null) => {
-  //   if (intervalId !== null) {
-  //     clearInterval(intervalId);
-  //   }
-  // };
   const logicTransform = (logic: boolean) => (logic ? 1 : 0);
 
   useEffect(() => {
-    setLogic(
-      [
-        upButton1Pressed,
-        downButton1Pressed,
-        upButton2Pressed,
-        downButton2Pressed,
-      ].map(logicTransform)
-    );
-    return controlAction(logic);
+    const controlsLogic = [
+      upButton1Pressed,
+      downButton1Pressed,
+      upButton2Pressed,
+      downButton2Pressed,
+    ];
+
+    const transformedLogic = controlsLogic.map(logicTransform);
+    setLogic(transformedLogic);
+
+    controlAction([
+      ...transformedLogic,
+      logicTransform(weapon),
+      logicTransform(flame),
+    ]);
+
+    if (controlsLogic.some((e) => e === true)) {
+      clearInterval(buttonsIntervalId!);
+
+      const intervalId = setInterval(() => {
+        controlAction([
+          ...transformedLogic,
+          logicTransform(weapon),
+          logicTransform(flame),
+        ]);
+      }, 180);
+
+      setButtonsIntervalId(intervalId);
+    }
   }, [
     upButton1Pressed,
     downButton1Pressed,
@@ -73,7 +67,17 @@ const Controller: React.FC<Props> = ({
   ]);
 
   return (
-    <div style={{ marginTop: '70px' }}>
+    <div style={{ marginTop: '50px' }}>
+      <FiberManualRecordIcon
+        sx={{
+          fontSize: 15,
+          color: buttonsIntervalId !== null ? 'red' : '',
+          borderRadius: '50%',
+          backgroundColor: 'black',
+          boxShadow: '2px 2px 2px grey',
+        }}
+      />
+
       <div className="controller-container">
         <ButtonGroup
           variant="contained"
@@ -88,6 +92,7 @@ const Controller: React.FC<Props> = ({
             }}
             onMouseUp={() => {
               setUpButton1Pressed(false);
+              // handleMouseUp();
               // handleMouseUp(upButton1IntervalId);
             }}
             onTouchStart={() => {
@@ -95,6 +100,7 @@ const Controller: React.FC<Props> = ({
             }}
             onTouchEnd={() => {
               setUpButton1Pressed(false);
+              // handleMouseUp();
             }}
           >
             <ArrowDropUpIcon fontSize="large" />
