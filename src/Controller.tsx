@@ -11,7 +11,7 @@ interface Props {
 }
 
 const Controller: React.FC<Props> = ({ controlAction }) => {
-  const [buttonsIntervalId, setButtonsIntervalId] = useState<number | null>(0);
+  const [buttonsIntervalId, setButtonsIntervalId] = useState<NodeJS.Timer | null>(null);
 
   const [upButton1Pressed, setUpButton1Pressed] = useState(false);
   const [downButton1Pressed, setDownButton1Pressed] = useState(false);
