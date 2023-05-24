@@ -27,7 +27,7 @@ const Controller: React.FC<Props> = ({ controlAction }) => {
     setButtonsIntervalId(null);
   }
 
-  const logicTransform = (logic: boolean) => (logic ? 1 : 0);
+  const logicTransform = (logic: boolean | number) => (logic ? 1 : 0);
 
   useEffect(() => {
     const controlsLogic = [
@@ -35,6 +35,8 @@ const Controller: React.FC<Props> = ({ controlAction }) => {
       downButton1Pressed,
       upButton2Pressed,
       downButton2Pressed,
+      weapon,
+      flame,
     ];
 
     const transformedLogic = controlsLogic.map(logicTransform);
@@ -51,6 +53,7 @@ const Controller: React.FC<Props> = ({ controlAction }) => {
       setDownButton1Pressed(false);
       setUpButton2Pressed(false);
       setDownButton2Pressed(false);
+      setWeapon(false);
     };
 
     document.addEventListener('mouseup', handleMouseUp);
@@ -152,12 +155,16 @@ const Controller: React.FC<Props> = ({ controlAction }) => {
             >
               WEAPON
             </Typography>
-            <Switch
-              checked={weapon}
-              onChange={() => setWeapon(!weapon)}
-              inputProps={{ 'aria-label': 'toggle' }}
+            <Button
+              onMouseDown={() => setWeapon(true)}
+              onMouseUp={() => setWeapon(false)}
+              onTouchStart={() => setWeapon(true)}
+              onTouchEnd={() => setWeapon(false)}
+              variant={weapon ? 'contained' : 'outlined'}
               color="error"
-            />
+            >
+              {weapon ? 'ON' : 'OFF'}
+            </Button>
           </Box>
           <Box
             sx={{
@@ -248,7 +255,7 @@ const Controller: React.FC<Props> = ({ controlAction }) => {
             <ArrowDropDownIcon />
           </Box>
         </Box>
-         <div>{logic.join(' ')}</div>
+        <div>{logic.join(' ')}</div>
       </Box>
     </div>
   );
