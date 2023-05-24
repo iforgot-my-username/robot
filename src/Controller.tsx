@@ -6,12 +6,13 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import './Controller.css';
 import { Box, Switch, Typography } from '@mui/material';
+
 interface Props {
-  controlAction: ([]: number[]) => void;
+  controlAction: (logic: number[]) => void;
 }
 
 const Controller: React.FC<Props> = ({ controlAction }) => {
-  const [buttonsIntervalId, setButtonsIntervalId] = useState<number | null>(0);
+  const [buttonsIntervalId, setButtonsIntervalId] = useState<NodeJS.Timer | null>(null);
 
   const [upButton1Pressed, setUpButton1Pressed] = useState(false);
   const [downButton1Pressed, setDownButton1Pressed] = useState(false);
@@ -22,11 +23,11 @@ const Controller: React.FC<Props> = ({ controlAction }) => {
   const [flame, setFlame] = useState(false);
 
   if (logic.every((e) => e === 0) && buttonsIntervalId !== null) {
-    clearInterval(buttonsIntervalId!);
+    clearInterval(buttonsIntervalId);
     setButtonsIntervalId(null);
   }
 
-  const logicTransform = (logic: boolean) => (logic ? 1 : 0);
+  const logicTransform = (logic: boolean | number) => (logic ? 1 : 0);
 
   useEffect(() => {
     const controlsLogic = [
@@ -34,6 +35,8 @@ const Controller: React.FC<Props> = ({ controlAction }) => {
       downButton1Pressed,
       upButton2Pressed,
       downButton2Pressed,
+      weapon,
+      flame,
     ];
 
     const transformedLogic = controlsLogic.map(logicTransform);
@@ -45,25 +48,19 @@ const Controller: React.FC<Props> = ({ controlAction }) => {
       logicTransform(flame),
     ]);
 
-    if (controlsLogic.some((e) => e === true)) {
-      clearInterval(buttonsIntervalId!);
+    const handleMouseUp = () => {
+      setUpButton1Pressed(false);
+      setDownButton1Pressed(false);
+      setUpButton2Pressed(false);
+      setDownButton2Pressed(false);
+      setWeapon(false);
+    };
 
-      const intervalId = setInterval(() => {
-        controlAction([
-          ...transformedLogic,
-          logicTransform(weapon),
-          logicTransform(flame),
-        ]);
-      }, 200);
-
-      setButtonsIntervalId(intervalId);
-    }
-  }, [
-    upButton1Pressed,
-    downButton1Pressed,
-    upButton2Pressed,
-    downButton2Pressed,
-  ]);
+    document.addEventListener('mouseup', handleMouseUp);
+    return () => {
+      document.removeEventListener('mouseup', handleMouseUp);
+    };
+  }, [upButton1Pressed, downButton1Pressed, upButton2Pressed, downButton2Pressed, weapon, flame]);
 
   return (
     <div style={{ marginTop: '50px' }}>
@@ -88,14 +85,8 @@ const Controller: React.FC<Props> = ({ controlAction }) => {
             onMouseDown={() => {
               setUpButton1Pressed(true);
             }}
-            onMouseUp={() => {
-              setUpButton1Pressed(false);
-            }}
             onTouchStart={() => {
               setUpButton1Pressed(true);
-            }}
-            onTouchEnd={() => {
-              setUpButton1Pressed(false);
             }}
           >
             <ArrowDropUpIcon fontSize="large" />
@@ -105,14 +96,8 @@ const Controller: React.FC<Props> = ({ controlAction }) => {
             onMouseDown={() => {
               setDownButton1Pressed(true);
             }}
-            onMouseUp={() => {
-              setDownButton1Pressed(false);
-            }}
             onTouchStart={() => {
               setDownButton1Pressed(true);
-            }}
-            onTouchEnd={() => {
-              setDownButton1Pressed(false);
             }}
           >
             <ArrowDropDownIcon fontSize="large" />
@@ -128,14 +113,8 @@ const Controller: React.FC<Props> = ({ controlAction }) => {
             onMouseDown={() => {
               setUpButton2Pressed(true);
             }}
-            onMouseUp={() => {
-              setUpButton2Pressed(false);
-            }}
             onTouchStart={() => {
               setUpButton2Pressed(true);
-            }}
-            onTouchEnd={() => {
-              setUpButton2Pressed(false);
             }}
           >
             <ArrowDropUpIcon fontSize="large" />
@@ -145,14 +124,8 @@ const Controller: React.FC<Props> = ({ controlAction }) => {
             onMouseDown={() => {
               setDownButton2Pressed(true);
             }}
-            onMouseUp={() => {
-              setDownButton2Pressed(false);
-            }}
             onTouchStart={() => {
               setDownButton2Pressed(true);
-            }}
-            onTouchEnd={() => {
-              setDownButton2Pressed(false);
             }}
           >
             <ArrowDropDownIcon fontSize="large" />
@@ -182,12 +155,16 @@ const Controller: React.FC<Props> = ({ controlAction }) => {
             >
               WEAPON
             </Typography>
-            <Switch
-              checked={weapon}
-              onChange={() => setWeapon(!weapon)}
-              inputProps={{ 'aria-label': 'toggle' }}
+            <Button
+              onMouseDown={() => setWeapon(true)}
+              onMouseUp={() => setWeapon(false)}
+              onTouchStart={() => setWeapon(true)}
+              onTouchEnd={() => setWeapon(false)}
+              variant={weapon ? 'contained' : 'outlined'}
               color="error"
-            />
+            >
+              {weapon ? 'ON' : 'OFF'}
+            </Button>
           </Box>
           <Box
             sx={{
@@ -215,7 +192,6 @@ const Controller: React.FC<Props> = ({ controlAction }) => {
       <Box
         sx={{
           borderRadius: '5px',
-
           marginTop: '15px',
           backgroundColor: '#f5f5f5',
           padding: '2px',
@@ -279,7 +255,6 @@ const Controller: React.FC<Props> = ({ controlAction }) => {
             <ArrowDropDownIcon />
           </Box>
         </Box>
-
         <div>{logic.join(' ')}</div>
       </Box>
     </div>
