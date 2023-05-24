@@ -27,8 +27,6 @@ const Controller: React.FC<Props> = ({ controlAction }) => {
     setButtonsIntervalId(null);
   }
 
-
-
   const logicTransform = (logic: boolean | number) => (logic ? 1 : 0);
 
   useEffect(() => {
@@ -155,8 +153,14 @@ const Controller: React.FC<Props> = ({ controlAction }) => {
             onMouseDown={() => {
               setDownButton2Pressed(true);
             }}
+            onMouseUp={() => {
+              setDownButton2Pressed(false);
+            }}
             onTouchStart={() => {
               setDownButton2Pressed(true);
+            }}
+            onTouchEnd={() => {
+              setDownButton2Pressed(false);
             }}
           >
             <ArrowDropDownIcon fontSize="large" />
