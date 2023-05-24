@@ -12,7 +12,7 @@ interface Props {
 }
 
 const Controller: React.FC<Props> = ({ controlAction }) => {
-  const [buttonsIntervalId, setButtonsIntervalId] = useState<NodeJS.Timer | null>(null);
+  const [buttonsIntervalId, setButtonsIntervalId] = useState<number | null>(null);
 
   const [upButton1Pressed, setUpButton1Pressed] = useState(false);
   const [downButton1Pressed, setDownButton1Pressed] = useState(false);
@@ -27,6 +27,8 @@ const Controller: React.FC<Props> = ({ controlAction }) => {
     setButtonsIntervalId(null);
   }
 
+
+
   const logicTransform = (logic: boolean | number) => (logic ? 1 : 0);
 
   useEffect(() => {
@@ -38,6 +40,17 @@ const Controller: React.FC<Props> = ({ controlAction }) => {
       weapon,
       flame,
     ];
+
+    //  if (controlsLogic.some((e) => e === true)) {
+    // clearInterval(buttonsIntervalId!);
+  //   const intervalId = setInterval(() => {
+  //     controlAction([
+  //       ...transformedLogic,
+  //       logicTransform(weapon),
+  //       logicTransform(flame),
+  //     ]);
+  //   }, 200);
+  // }
 
     const transformedLogic = controlsLogic.map(logicTransform);
     setLogic(transformedLogic);
@@ -85,8 +98,14 @@ const Controller: React.FC<Props> = ({ controlAction }) => {
             onMouseDown={() => {
               setUpButton1Pressed(true);
             }}
+            onMouseUp={() => {
+              setUpButton1Pressed(false);
+            }}
             onTouchStart={() => {
               setUpButton1Pressed(true);
+            }}
+            onTouchEnd={() => {
+              setUpButton1Pressed(false);
             }}
           >
             <ArrowDropUpIcon fontSize="large" />
@@ -96,8 +115,14 @@ const Controller: React.FC<Props> = ({ controlAction }) => {
             onMouseDown={() => {
               setDownButton1Pressed(true);
             }}
+            onMouseUp={() => {
+              setDownButton1Pressed(false);
+            }}
             onTouchStart={() => {
               setDownButton1Pressed(true);
+            }}
+            onTouchEnd={() => {
+              setDownButton1Pressed(false);
             }}
           >
             <ArrowDropDownIcon fontSize="large" />
@@ -113,8 +138,14 @@ const Controller: React.FC<Props> = ({ controlAction }) => {
             onMouseDown={() => {
               setUpButton2Pressed(true);
             }}
+            onMouseUp={() => {
+              setUpButton2Pressed(false);
+            }}
             onTouchStart={() => {
               setUpButton2Pressed(true);
+            }}
+            onTouchEnd={() => {
+              setUpButton2Pressed(false);
             }}
           >
             <ArrowDropUpIcon fontSize="large" />
